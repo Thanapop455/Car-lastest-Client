@@ -6,7 +6,10 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5001");
+// const socket = io("http://localhost:5001");
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+  transports: ["websocket", "polling"]
+});
 
 const AllMap = () => {
   const [busStops, setBusStops] = useState([]);
@@ -202,7 +205,8 @@ const AllMap = () => {
   useEffect(() => {
     const fetchDriverLocations = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/driver-locations");
+        // const res = await fetch("http://localhost:5001/api/driver-locations");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/driver-locations`);
         const data = await res.json();
         setDriverLocations(data);
         console.log("🚍 Loaded driver locations:", data);
@@ -230,7 +234,7 @@ const AllMap = () => {
       <h1 className="text-xl font-bold mb-4">แผนที่ป้ายรถ</h1>
 
       <Map
-        mapboxAccessToken="pk.eyJ1IjoidGhhbmFwb3A0NTUiLCJhIjoiY203bm9ibTk4MDNoeTJqc2loaTE2cWxoOSJ9.v360iVmwGQrqmSgcQZW04g"
+        mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
         initialViewState={viewport}
         style={{ width: "80vw", height: "700px", borderRadius: "10px" }}
         mapStyle="mapbox://styles/thanapop455/cm802cn7f01cr01sb4gf0b8aw"

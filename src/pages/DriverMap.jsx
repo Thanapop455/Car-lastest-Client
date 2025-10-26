@@ -8,7 +8,10 @@ import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 
 // ✅ เชื่อมต่อ WebSocket Server
-const socket = io("http://localhost:5001");
+// const socket = io("http://localhost:5001");
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+  transports: ["websocket", "polling"]
+});
 
 const DriverMap = () => {
   const token = useMaingobal((state) => state.token);
@@ -325,7 +328,7 @@ const DriverMap = () => {
 
       {location.latitude && location.longitude ? (
         <Map
-          mapboxAccessToken="pk.eyJ1IjoidGhhbmFwb3A0NTUiLCJhIjoiY203bm9ibTk4MDNoeTJqc2loaTE2cWxoOSJ9.v360iVmwGQrqmSgcQZW04g"
+          mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
           initialViewState={{
             latitude: location.latitude,
             longitude: location.longitude,

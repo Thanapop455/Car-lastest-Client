@@ -1,0 +1,166 @@
+:root{
+  --brand:#4CAF50;
+  --brand-700:#3d9141;
+  --text-on-brand:#ffffff;
+  --border:#ffffff;
+  --hover:#ffffff;
+  --active:#ffeb3b;
+  --shadow:0 2px 10px rgba(0,0,0,.12);
+}
+
+/* ============ Base ============ */
+.navbar{
+  position:sticky;
+  top:0; left:0; z-index:1000;
+  width:100%;
+  background-color:var(--brand);
+  color:var(--text-on-brand);
+  box-shadow:var(--shadow);
+  backdrop-filter:saturate(120%) blur(4px);
+}
+.navbar--scrolled{
+  box-shadow:0 6px 16px rgba(0,0,0,.16);
+}
+
+.navbar-container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.navbar-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.navbar-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:var(--text-on-brand);
+}
+.logo-img{ width:40px; height:40px; }
+.logo-text{ font-weight:800; letter-spacing:.3px; }
+
+.nav-links-desktop{
+  display:none; /* mobile-first: ซ่อนบนมือถือ */
+  gap:8px;
+}
+
+.navbar-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* Links */
+.nav-link{
+  display:inline-block;
+  text-decoration:none;
+  color:var(--text-on-brand);
+  border:2px solid var(--border);
+  font-size:16px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  outline-offset:3px;
+}
+.nav-link:hover{
+  background-color:var(--hover);
+  color:var(--brand);
+  border-color:var(--active);
+  transform:translateY(-1px);
+}
+.nav-link.active{
+  background-color:var(--hover);
+  color:var(--brand);
+  border-color:var(--active);
+  box-shadow:0 0 0 3px rgba(255,235,59,.35);
+}
+
+/* Login button */
+.login-button{
+  background-color:var(--brand);
+  border:2px solid var(--border);
+  color:var(--text-on-brand);
+  padding:8px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  transition:all .2s ease;
+}
+.login-button:hover{
+  background-color:var(--hover);
+  color:var(--brand);
+  border-color:var(--active);
+  transform:translateY(-1px);
+}
+
+/* Hamburger */
+.hamburger{
+  display:inline-flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  width:40px; height:40px;
+  border:none; background:transparent; cursor:pointer;
+}
+.hamburger span{
+  display:block; height:3px; width:22px; background:#fff; border-radius:2px;
+  transition:transform .2s ease, opacity .2s ease;
+}
+
+/* Mobile menu panel */
+.nav-links-mobile{
+  display:grid;
+  gap:10px;
+  padding:10px 16px 16px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-6px);
+  transition:max-height .25s ease, opacity .2s ease, transform .2s ease;
+}
+.nav-links-mobile.open{
+  max-height:240px;
+  opacity:1;
+  transform:translateY(0);
+}
+.login-button.mobile{
+  text-align:center;
+}
+
+/* ============ Breakpoints ============ */
+
+/* >=768px (tablet) */
+@media (min-width: 768px){
+  .navbar-container{ padding:12px 24px; }
+  .nav-link{ font-size:17px; }
+}
+
+/* >=1024px (desktop) */
+@media (min-width: 1024px){
+  .hamburger{ display:none; }
+  .nav-links-desktop{ display:flex; }
+  .nav-links-mobile{ display:none; }
+  .login-button{ padding:10px 18px; }
+}
+
+/* ============ A11y/UX extras ============ */
+.nav-link:focus-visible,
+.login-button:focus-visible,
+.hamburger:focus-visible{
+  outline:3px solid var(--active);
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; }
+}

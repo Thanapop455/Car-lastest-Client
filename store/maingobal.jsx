@@ -17,7 +17,7 @@ const maingobal = (set) => ({
     localStorage.removeItem("SadStore");
   },
   actionLogin: async (form) => {
-    const res = await axios.post("https://car-lastest.vercel.app/api/login", form);
+    const res = await axios.post(import.meta.env.VITE_API_URL +"/login", form);
     set({
       user: res.data.payload,
       token: res.data.token,
